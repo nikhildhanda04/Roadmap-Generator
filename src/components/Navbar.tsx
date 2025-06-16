@@ -32,11 +32,11 @@ const Navbar = () => {
         <div className="text-2xl tracking-tight font-bold">
             Roadmap Gen.
         </div>
-        <div>
+        <div className="text-right mr-2">
             Start Your Learning Path, The Right Way
         </div>
         <div className="flex items-center tracking-tight flex-row gap-6">
-            <div>
+            <div className="hidden md:block">
                 {dateTime}
             </div>
             <div className="">

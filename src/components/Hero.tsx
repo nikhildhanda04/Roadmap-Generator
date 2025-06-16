@@ -5,10 +5,12 @@ const Hero = () => {
       <div className=" font-extrabold items-center text-center text-6xl">
         The Roadmap Generator 
       </div>
-      <div className="text-gray-700 pb-6 text-xl">
+      <div className="text-gray-700 text-center pb-6 text-xl">
         AI-Powered Roadmaps for Lifelong Learners
       </div>
-      <div className="flex flex-row p-4 border-2 gap-8 items-center justify-center rounded-xl border-b-4 border-r-4">
+
+      {/* responsiveness bug in the input field */}
+      <div className="flex flex-col md:flex-row p-4 md:border-2 gap-3 md:gap-8 items-center justify-center rounded-xl md:border-b-4 md:border-r-4">
         <input 
         type="text"
         placeholder="Enter your desired skill for learing..."

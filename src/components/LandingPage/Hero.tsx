@@ -9,14 +9,13 @@ const Hero = () => {
         AI-Powered Roadmaps for Lifelong Learners
       </div>
 
-      {/* responsiveness bug in the input field */}
       <div className="flex flex-col md:flex-row p-4 md:border-2 gap-3 md:gap-8 items-center justify-center rounded-xl md:border-b-4 md:border-r-4">
         <input 
         type="text"
         placeholder="Enter your desired skill for learing..."
         className="border-2 border-b-4 border-r-4 p-4 rounded-xl"
         />
-        <button className="p-3 border-2 border-b-4 border-r-4 rounded-xl bg-blue-200">
+        <button className="p-3 border-2 border-b-4 border-r-4 active:border-b-3 active:border-r-3 rounded-xl bg-blue-200">
             Generate
         </button>
       </div>

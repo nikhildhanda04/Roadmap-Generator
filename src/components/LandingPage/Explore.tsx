@@ -41,7 +41,7 @@ const cardData = [
 
 const Explore = () => {
   return (
-    <div className="flex flex-col justify-center gap-6 pt-7 items-center px-[5vw] mb-[3vw]">
+    <div className="flex flex-col justify-center gap-6 pt-20 items-center px-[5vw] mb-[3vw]">
         <div className="font-bold text-center text-4xl">
             Explore Existing Roadmaps
         </div>

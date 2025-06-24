@@ -1,8 +1,36 @@
+import FloatingElement from "../floatingElements"
 
 const Hero = () => {
+
   return (
     <div className="flex flex-col gap-4 justify-center items-center py-12" >
-      <div className=" font-extrabold items-center text-center text-6xl">
+
+       {/* <FloatingElement
+        src="/Alert.svg"
+        title="Bulb"
+        rotation={-20}
+        width={90}
+        height={90}
+        className="left-93 top-50 opacity-60 absolute"
+      /> */}
+      
+      <FloatingElement
+        src="/Blub.svg"
+        title="Bulb"
+        rotation={-20}
+        width={100}
+        height={100}
+        className="right-93 top-50 opacity-60 absolute"
+      />
+            <FloatingElement
+        src="/Ribbon.svg"
+        title="Bulb"
+        rotation={-170}
+        width={90}
+        height={90}
+        className="left-100 top-87 opacity-60 absolute"
+      />
+      <div className=" font-extrabold tracking-tight text-shadow-amber-600 text-shadow-xl items-center text-center text-6xl">
         The Roadmap Generator 
       </div>
       <div className="text-gray-700 text-center pb-6 text-xl">

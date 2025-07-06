@@ -1,0 +1,19 @@
+@font-face {
+  font-family: 'Inter';
+  src: url('/Fonts/Inter-VariableFont_opsz\,wght.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+}
+
+
+.retro-node {
+  border-top: 2px solid black;
+  border-left: 2px solid black;
+  border-bottom: 4px solid black;
+  border-right: 4px solid black;
+  border-radius: 10px;
+  font-family: 'Inter', sans-serif, monospace;
+  font-weight: 900;
+  background-color: pink;
+
+}

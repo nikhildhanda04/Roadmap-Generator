@@ -5,10 +5,10 @@ import MapView from './screens/MapView'
 import LoginUser from './screens/Auth/LoginUser'
 import SignUp from './screens/Auth/SignUp'
 import Layout from './components/Layout'
+import RoadmapViewer from './screens/Roadmap/RoadmapViewer'
 import React from 'react'
 
 function RequireAuth({ children }: { children: React.ReactNode }) {
-  // Replace this with your real authentication check
   const isAuthenticated = !!localStorage.getItem('authToken')
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />
@@ -51,6 +51,14 @@ function App() {
               <SignUp />
             </Layout>
           }
+        />
+        <Route 
+        path="/roadmap"
+        element={
+          <RequireAuth>
+            <RoadmapViewer />
+          </RequireAuth>
+        }
         />
       </Routes>
     </BrowserRouter>

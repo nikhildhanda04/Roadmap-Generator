@@ -15,3 +15,9 @@
 .text-shadow-xl {
   text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.15);
 }
+
+
+@font-face {
+  font-family: "Poppins";
+  src: url("/Fonts/Poppins-SemiBold.ttf") format("truetype");
+}

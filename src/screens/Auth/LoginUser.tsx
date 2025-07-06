@@ -25,7 +25,7 @@ const LoginUser = () => {
     setSuccess("")
     try {
       const response = await instance.post("/api/user/login", form)
-      localStorage.setItem("authToken", response.data.token || "dummy_token")
+      localStorage.setItem("authToken", response.data.accessToken || "dummy_token")
       
       localStorage.setItem("username", response.data.username || form.email.split('@')[0])
       localStorage.setItem("email", response.data.email || form.email)

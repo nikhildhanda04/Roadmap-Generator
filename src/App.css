@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+
+@font-face {
+  font-family: "Poppins";
+  src: url("/Fonts/Poppins-SemiBold.ttf") format("truetype");
+} 
+
 body {
-  font-family: 'poppins', sans-serif;
+  font-family: 'Poppins', sans-serif;
 }

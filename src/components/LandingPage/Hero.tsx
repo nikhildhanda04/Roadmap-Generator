@@ -1,19 +1,42 @@
-import FloatingElement from "../floatingElements"
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import FloatingElement from "../floatingElements";
+import axios from 'axios';
 
 const Hero = () => {
+  const [title, setTitle] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const handleGenerate = async () => {
+    if (!title.trim()) return;
+    setLoading(true);
+    
+    try {
+      // Assuming token is stored in localStorage or some place else
+      const token = localStorage.getItem('authToken'); 
+      if (!token) {
+        console.log("Token not found");
+      } 
+      
+      const res = await axios.post('http://localhost:5001/api/roadmap/create', { title }, { headers: { Authorization: `Bearer ${token}` } });
+      
+      if (!res.data) throw new Error("Failed to generate roadmap");
+      
+      console.log(`res.data:`, res.data);
+      
+      navigate("/roadmap", { state: { roadmap: res.data, title } });
+
+    } catch (err) {
+      console.error("Error generating roadmap:", err);
+      alert("Error generating roadmap.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="flex flex-col gap-4 justify-center items-center py-12" >
-
-       {/* <FloatingElement
-        src="/Alert.svg"
-        title="Bulb"
-        rotation={-20}
-        width={90}
-        height={90}
-        className="left-93 top-50 opacity-60 absolute"
-      /> */}
-      
       <FloatingElement
         src="/Blub.svg"
         title="Bulb"
@@ -22,7 +45,7 @@ const Hero = () => {
         height={100}
         className="right-93 top-50 opacity-60 absolute"
       />
-            <FloatingElement
+      <FloatingElement
         src="/Ribbon.svg"
         title="Bulb"
         rotation={-170}
@@ -39,12 +62,19 @@ const Hero = () => {
 
       <div className="flex flex-col md:flex-row p-4 md:border-2 gap-3 md:gap-8 items-center justify-center rounded-xl md:border-b-4 md:border-r-4">
         <input 
-        type="text"
-        placeholder="Enter your desired skill for learing..."
-        className="border-2 border-b-4 border-r-4 p-4 rounded-xl"
+          type="text"
+          placeholder="Enter your desired skill for learing..."
+          className="border-2 border-b-4 border-r-4 p-4 rounded-xl"
+          value={title}
+          onChange={e => setTitle(e.target.value)}
+          disabled={loading}
         />
-        <button className="p-3 border-2 border-b-4 border-r-4 active:border-b-3 active:border-r-3 rounded-xl bg-blue-200">
-            Generate
+        <button
+          className="p-3 border-2 border-b-4 border-r-4 active:border-b-3 active:border-r-3 rounded-xl bg-blue-200"
+          onClick={handleGenerate}
+          disabled={loading}
+        >
+          {loading ? "Generating..." : "Generate"}
         </button>
       </div>
     </div>

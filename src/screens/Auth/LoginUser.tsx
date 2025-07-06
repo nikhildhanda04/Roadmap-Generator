@@ -123,7 +123,7 @@ const LoginUser = () => {
                   href="/signup"
                   className="text-cyan-700 hover:underline"
                 >
-                  Sign Up
+                  Sign Up 
                 </a>
               </p>
             </div>

@@ -43,7 +43,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="bg-[#FFFFE3] flex flex-row font-poppins items-center justify-between px-[2vw] py-[1vw] border-b-2">
+    <div className="bg-[#FFFFE3] flex flex-row shadow-xl font-poppins items-center justify-between px-[2vw] py-[1vw] border-b-2">
       <div className="text-2xl tracking-tight font-bold">
         <a
         href='/'

@@ -2,8 +2,8 @@ import { useCallback, useEffect, useState } from "react";
 import ReactFlow, {
   Background,
   Controls,
-  MiniMap,
   applyNodeChanges,
+  MarkerType, // ✅ marker for arrowheads
 } from "reactflow";
 import type { Node, Edge, NodeChange } from "reactflow";
 import "reactflow/dist/style.css";
@@ -41,7 +41,6 @@ export default function Roadmap({ roadmap }: Props) {
     levels.forEach((level, colIdx) => {
       const steps = roadmap[level] || [];
 
-      // Heading node
       const headingId = `heading-${level}`;
       newNodes.push({
         id: headingId,
@@ -52,38 +51,46 @@ export default function Roadmap({ roadmap }: Props) {
 
       let prevStepId: string | null = null;
 
-      steps.forEach((step, rowIdx) => {
-        const nodeId = id.toString();
+steps.forEach((step, rowIdx) => {
+  const nodeId = id.toString();
 
-        newNodes.push({
-          id: nodeId,
-          type: "step",
-          data: {
-            label: step.title,
-            description: step.description,
-            content: step.content,
-            prerequisites: step.prerequisites || [],
-          },
-          position: { x: colIdx * 400, y: rowIdx * 220 },
-        });
+  newNodes.push({
+    id: nodeId,
+    type: "step",
+    data: {
+      number: rowIdx + 1, // ✅ Number for this step
+      label: step.title,
+      description: step.description,
+      content: step.content,
+      prerequisites: step.prerequisites || [],
+    },
+    position: { x: colIdx * 400, y: rowIdx * 220 },
+  });
 
         titleToId.set(step.title, nodeId);
 
-        // Auto-link previous step to this step
         if (prevStepId) {
           newEdges.push({
             id: `auto-${prevStepId}-${nodeId}`,
             source: prevStepId,
             target: nodeId,
+            type: "smoothstep",
             animated: true,
+            markerEnd: {
+              type: MarkerType.ArrowClosed,
+            },
           });
         } else {
-          // Link heading to first step
+          // ✅ Heading → first step arrow
           newEdges.push({
             id: `heading-${headingId}-${nodeId}`,
             source: headingId,
             target: nodeId,
+            type: "smoothstep",
             animated: true,
+            markerEnd: {
+              type: MarkerType.ArrowClosed,
+            },
           });
         }
 
@@ -92,7 +99,7 @@ export default function Roadmap({ roadmap }: Props) {
       });
     });
 
-    // Extra edges by prerequisites
+    // ✅ Extra edges for prerequisites
     newNodes.forEach((node) => {
       const prerequisites = node.data.prerequisites as string[] | undefined;
       prerequisites?.forEach((prereqTitle) => {
@@ -103,7 +110,11 @@ export default function Roadmap({ roadmap }: Props) {
             id: `prereq-${sourceId}-${node.id}`,
             source: sourceId,
             target: node.id,
+            type: "smoothstep",
             animated: true,
+            markerEnd: {
+              type: MarkerType.ArrowClosed,
+            },
           });
         }
       });
@@ -129,7 +140,6 @@ export default function Roadmap({ roadmap }: Props) {
       >
         <Background />
         <Controls />
-        <MiniMap />
       </ReactFlow>
     </div>
   );

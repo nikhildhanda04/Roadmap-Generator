@@ -1,10 +1,12 @@
-import { Handle, Position } from "reactflow";
-import type { NodeProps } from "reactflow";
+import { Handle, Position, } from "reactflow";
+import type { NodeProps  } from "reactflow";
 
 export default function StepNode({ data }: NodeProps) {
   return (
-    <div className="bg-white border border-gray-300 rounded p-4 shadow text-left w-60">
-      <h3 className="font-bold text-base mb-1">{data.label}</h3>
+    <div className="bg-white border-gray-300 border-2 border-b-4 border-r-4 rounded p-4 shadow text-left w-60">
+      <h3 className="font-bold text-base mb-1">
+        {data.number}. {data.label}
+      </h3>
       {data.description && (
         <p className="text-xs mb-1 text-gray-600">{data.description}</p>
       )}

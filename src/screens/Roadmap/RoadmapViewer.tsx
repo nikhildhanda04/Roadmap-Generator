@@ -31,7 +31,7 @@ const RoadmapViewer = () => {
           boxShadow: "0 10px 20px rgba(0, 0, 0, 0.1)",
         }}
       >
-        <Roadmap roadmap={roadmap.data} />
+        <Roadmap roadmap={roadmap.data || roadmap} />
       </div>
     </div>
   )

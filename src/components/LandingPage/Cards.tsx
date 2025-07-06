@@ -18,7 +18,7 @@ const Cards = ({
       <div>
         <img
           src={imageSrc}
-          className="object-cover"
+          className="object-cover border border-neutral-700 rounded-xl p-1"
           alt={title}
         />
       </div>

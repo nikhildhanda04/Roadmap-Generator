@@ -1,7 +1,7 @@
 import './App.css'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import LandingPage from './screens/LandingPage'
-import MapView from './screens/MapView'
+// import MapView from './screens/MapView'
 import LoginUser from './screens/Auth/LoginUser'
 import SignUp from './screens/Auth/SignUp'
 import Layout from './components/Layout'
@@ -28,14 +28,14 @@ function App() {
             </RequireAuth>
           }
         />
-        <Route
+        {/* <Route
           path="/mapview"
           element={
             <RequireAuth>
               <MapView />
             </RequireAuth>
           }
-        />
+        /> */}
         <Route
           path="/login"
           element={

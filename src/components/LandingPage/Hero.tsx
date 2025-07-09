@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import FloatingElement from "../floatingElements";
+import Lottie from 'lottie-react';
+import animationData from '../Loader.json';
 import axios from 'axios';
+import { easeIn, motion } from 'framer-motion'
+
 
 const Hero = () => {
   const [title, setTitle] = useState("");
@@ -13,7 +18,7 @@ const Hero = () => {
     setLoading(true);
     
     try {
-      // Assuming token is stored in localStorage or some place else
+      
       const token = localStorage.getItem('authToken'); 
       if (!token) {
         console.log("Token not found");
@@ -43,7 +48,7 @@ const Hero = () => {
         rotation={-20}
         width={100}
         height={100}
-        className="right-93 top-50 opacity-60 absolute"
+        className="hidden md:absolute right-93 top-50 opacity-60 "
       />
       <FloatingElement
         src="/Ribbon.svg"
@@ -51,16 +56,28 @@ const Hero = () => {
         rotation={-170}
         width={90}
         height={90}
-        className="left-100 top-87 opacity-60 absolute"
+        className="hidden md:absolute left-100 top-87 opacity-60 "
       />
-      <div className=" font-extrabold tracking-tight text-shadow-amber-600 text-shadow-xl items-center text-center text-6xl">
+      <motion.div 
+      initial={{y: 20, opacity:0.2, filter: "blur(10px)" }}
+      animate={{y: 0, opacity: 1, filter: "blur(0px)"}}
+      transition={{ease: easeIn, duration: 0.5 }}
+      className="font-extrabold tracking-tight text-shadow-amber-600 text-shadow-xl items-center text-center text-6xl">
         The Roadmap Generator 
-      </div>
-      <div className="text-gray-700 text-center pb-6 text-xl">
+      </motion.div>
+      <motion.div 
+      initial={{y: 20, opacity:0.2, filter: "blur(10px)" }}
+      animate={{y: 0, opacity: 1, filter: "blur(0px)"}}
+      transition={{ease: easeIn, duration: 0.6 }}
+      className="text-gray-700 text-center pb-6 text-xl">
         AI-Powered Roadmaps for Lifelong Learners
-      </div>
+      </motion.div>
 
-      <div className="flex flex-col md:flex-row p-4 md:border-2 gap-3 md:gap-8 items-center justify-center rounded-xl md:border-b-4 md:border-r-4">
+      <motion.div 
+      initial={{y: 20, opacity:0.2, filter: "blur(10px)" }}
+      animate={{y: 0, opacity: 1, filter: "blur(0px)"}}
+      transition={{ease: easeIn, duration: 0.8 }}
+      className="flex flex-col md:flex-row p-4 md:border-2 gap-3 md:gap-8 items-center justify-center rounded-xl md:border-b-4 md:border-r-4">
         <input 
           type="text"
           placeholder="Enter your desired skill for learing..."
@@ -74,9 +91,9 @@ const Hero = () => {
           onClick={handleGenerate}
           disabled={loading}
         >
-          {loading ? "Generating..." : "Generate"}
+          {loading ? <Lottie animationData={animationData} loop={true} /> : "Generate"}
         </button>
-      </div>
+      </motion.div>
     </div>
   )
 }

@@ -30,7 +30,7 @@ const Cards = ({
       </div>
       <div>
         <button
-          className="border-2 border-b-4 border-r-4 bg-blue-300 p-3 rounded"
+          className="border-2 border-b-4 border-r-4 active:border-b-2 active:border-r-2 bg-blue-300 p-3 rounded"
           onClick={onButtonClick}
         >
           {buttonText}

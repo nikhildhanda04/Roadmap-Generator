@@ -2,8 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import FloatingElement from "../floatingElements";
-import Lottie from 'lottie-react';
-import animationData from '../Loader.json';
 import axios from 'axios';
 import { easeIn, motion } from 'framer-motion'
 
@@ -91,7 +89,7 @@ const Hero = () => {
           onClick={handleGenerate}
           disabled={loading}
         >
-          {loading ? <Lottie animationData={animationData} loop={true} /> : "Generate"}
+          {loading ? "Generating..." : "Generate"}
         </button>
       </motion.div>
     </div>

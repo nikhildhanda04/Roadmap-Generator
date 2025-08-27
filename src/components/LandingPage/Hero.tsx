@@ -22,7 +22,7 @@ const Hero = () => {
         console.log("Token not found");
       } 
       
-      const res = await axios.post('http://localhost:5001/api/roadmap/create', { title }, { headers: { Authorization: `Bearer ${token}` } });
+      const res = await axios.post('https://roadmap-backend-1.onrender.com/api/roadmap/create', { title }, { headers: { Authorization: `Bearer ${token}` } });
       
       if (!res.data) throw new Error("Failed to generate roadmap");
       

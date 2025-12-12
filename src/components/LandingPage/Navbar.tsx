@@ -1,4 +1,4 @@
-import {CircleUser as User} from "lucide-react";
+import { CircleUser as User } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -46,11 +46,11 @@ const Navbar = () => {
     <div className="bg-[#FFFFE3] flex flex-row shadow-xl font-poppins items-center justify-between px-[2vw] py-[1vw] border-b-2">
       <div className="text-2xl tracking-tight font-bold">
         <a
-        href='/'
+          href='/'
         >
-        Roadmap Gen.
+          Roadmap Gen.
         </a>
-        
+
       </div>
       <div className="text-right mr-2">
         Start Your Learning Path, The Right Way
@@ -71,7 +71,7 @@ const Navbar = () => {
           onMouseLeave={() => {
             const timeout = setTimeout(() => {
               setShowDropdown(false);
-            }, 300); 
+            }, 300);
             setHideTimeout(timeout);
           }}
         >

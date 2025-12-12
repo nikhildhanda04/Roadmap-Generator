@@ -32,109 +32,112 @@ export default function Roadmap({ roadmap }: Props) {
 
 
 
-useEffect(() => {
-  const levels = ["beginner", "intermediate", "advanced"] as const;
-  const newNodes: Node[] = [];
-  const newEdges: Edge[] = [];
-  const titleToId = new Map<string, string>();
+  useEffect(() => {
+    const levels = ["beginner", "intermediate", "advanced"] as const;
+    const newNodes: Node[] = [];
+    const newEdges: Edge[] = [];
+    const titleToId = new Map<string, string>();
 
 
-  let id = 1;
+    let id = 1;
 
-  const isMobile = window.innerWidth < 768; 
+    const isMobile = window.innerWidth < 768;
 
-  const containerWidth = window.innerWidth;
-  // const containerHeight = window.innerHeight;
+    const containerWidth = window.innerWidth;
+    // const containerHeight = window.innerHeight;
 
-  const colSpacing = isMobile ? 0 : containerWidth / (levels.length + 1);
-  const rowSpacing = 400;
+    const colSpacing = isMobile ? 0 : containerWidth / (levels.length + 1);
+    const rowSpacing = 400;
 
-  levels.forEach((level, colIdx) => {
-    const steps = roadmap[level] || [];
+    levels.forEach((level, colIdx) => {
+      const steps = roadmap[level] || [];
 
-    const headingX = isMobile ? containerWidth / 2 : (colIdx + 1) * colSpacing;
-    const headingY = isMobile ? colIdx * 400 : -200;
+      const headingX = isMobile ? containerWidth / 2 : (colIdx + 1) * colSpacing;
+      const headingY = isMobile ? colIdx * 400 : -200;
 
-    const headingId = `heading-${level}`;
-    newNodes.push({
-      id: headingId,
-      type: "heading",
-      data: { label: level.toUpperCase() },
-      position: { x: headingX, y: headingY },
-    });
-
-    let prevStepId: string | null = null;
-
-    steps.forEach((step, rowIdx) => {
-      const nodeId = id.toString();
-
-      const nodeX = isMobile ? containerWidth / 2 : (colIdx + 1) * colSpacing;
-      const nodeY = isMobile
-        ? headingY + (rowIdx + 1) * rowSpacing
-        : rowIdx * rowSpacing;
-
+      const headingId = `heading-${level}`;
       newNodes.push({
-        id: nodeId,
-        type: "step",
-        data: {
-          number: rowIdx + 1,
-          label: step.title,
-          description: step.description,
-          content: step.content,
-          prerequisites: step.prerequisites || [],
-        },
-        position: { x: nodeX, y: nodeY },
+        id: headingId,
+        type: "heading",
+        data: { label: level.toUpperCase() },
+        position: { x: headingX, y: headingY },
       });
 
-      titleToId.set(step.title, nodeId);
+      let prevStepId: string | null = null;
 
-      if (prevStepId) {
-        newEdges.push({
-          id: `auto-${prevStepId}-${nodeId}`,
-          source: prevStepId,
-          target: nodeId,
-          type: "smoothstep",
-          animated: true,
-          markerEnd: { type: MarkerType.ArrowClosed },
-        });
-      } else {
-        newEdges.push({
-          id: `heading-${headingId}-${nodeId}`,
-          source: headingId,
-          target: nodeId,
-          type: "smoothstep",
-          animated: true,
-          markerEnd: { type: MarkerType.ArrowClosed },
-        });
-      }
+      steps.forEach((step, rowIdx) => {
+        const nodeId = id.toString();
 
-      prevStepId = nodeId;
-      id++;
+        const nodeX = isMobile ? containerWidth / 2 : (colIdx + 1) * colSpacing;
+        const nodeY = isMobile
+          ? headingY + (rowIdx + 1) * rowSpacing
+          : rowIdx * rowSpacing;
+
+        newNodes.push({
+          id: nodeId,
+          type: "step",
+          data: {
+            number: rowIdx + 1,
+            label: step.title,
+            description: step.description,
+            content: step.content,
+            prerequisites: step.prerequisites || [],
+          },
+          position: { x: nodeX, y: nodeY },
+        });
+
+        titleToId.set(step.title, nodeId);
+
+        if (prevStepId) {
+          newEdges.push({
+            id: `auto-${prevStepId}-${nodeId}`,
+            source: prevStepId,
+            target: nodeId,
+            type: "smoothstep",
+            animated: true,
+            style: { stroke: "#000000", strokeWidth: 2 },
+            markerEnd: { type: MarkerType.ArrowClosed, color: "#000000" },
+          });
+        } else {
+          newEdges.push({
+            id: `heading-${headingId}-${nodeId}`,
+            source: headingId,
+            target: nodeId,
+            type: "smoothstep",
+            animated: true,
+            style: { stroke: "#000000", strokeWidth: 2 },
+            markerEnd: { type: MarkerType.ArrowClosed, color: "#000000" },
+          });
+        }
+
+        prevStepId = nodeId;
+        id++;
+      });
     });
-  });
 
-  // prerequisites stay same
-  newNodes.forEach((node) => {
-    const prerequisites = node.data.prerequisites as string[] | undefined;
-    prerequisites?.forEach((prereqTitle) => {
-      const cleanTitle = prereqTitle.replace(/^Step \d+:\s*/, "").trim();
-      const sourceId = titleToId.get(cleanTitle);
-      if (sourceId) {
-        newEdges.push({
-          id: `prereq-${sourceId}-${node.id}`,
-          source: sourceId,
-          target: node.id,
-          type: "smoothstep",
-          animated: true,
-          markerEnd: { type: MarkerType.ArrowClosed },
-        });
-      }
+    // prerequisites stay same
+    newNodes.forEach((node) => {
+      const prerequisites = node.data.prerequisites as string[] | undefined;
+      prerequisites?.forEach((prereqTitle) => {
+        const cleanTitle = prereqTitle.replace(/^Step \d+:\s*/, "").trim();
+        const sourceId = titleToId.get(cleanTitle);
+        if (sourceId) {
+          newEdges.push({
+            id: `prereq-${sourceId}-${node.id}`,
+            source: sourceId,
+            target: node.id,
+            type: "smoothstep",
+            animated: true,
+            style: { stroke: "#000000", strokeWidth: 2, strokeDasharray: "5,5" },
+            markerEnd: { type: MarkerType.ArrowClosed, color: "#000000" },
+          });
+        }
+      });
     });
-  });
 
-  setNodes(newNodes);
-  setEdges(newEdges);
-}, [roadmap]);
+    setNodes(newNodes);
+    setEdges(newEdges);
+  }, [roadmap]);
 
 
   const onNodesChange = useCallback(

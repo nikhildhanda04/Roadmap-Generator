@@ -1,5 +1,5 @@
 import './App.css'
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import LandingPage from './screens/LandingPage'
 // import MapView from './screens/MapView'
 import LoginUser from './screens/Auth/LoginUser'
@@ -9,10 +9,10 @@ import RoadmapViewer from './screens/Roadmap/RoadmapViewer'
 import React from 'react'
 
 function RequireAuth({ children }: { children: React.ReactNode }) {
-  const isAuthenticated = !!localStorage.getItem('authToken')
-  if (!isAuthenticated) {
-    return <Navigate to="/login" replace />
-  }
+  // const isAuthenticated = !!localStorage.getItem('authToken')
+  // if (!isAuthenticated) {
+  //   return <Navigate to="/login" replace />
+  // }
   return children
 }
 
@@ -52,13 +52,13 @@ function App() {
             </Layout>
           }
         />
-        <Route 
-        path="/roadmap"
-        element={
-          <RequireAuth>
-            <RoadmapViewer />
-          </RequireAuth>
-        }
+        <Route
+          path="/roadmap"
+          element={
+            <RequireAuth>
+              <RoadmapViewer />
+            </RequireAuth>
+          }
         />
       </Routes>
     </BrowserRouter>

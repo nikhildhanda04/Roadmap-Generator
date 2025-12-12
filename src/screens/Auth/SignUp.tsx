@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Loader2 } from "lucide-react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
@@ -10,6 +11,7 @@ const SignUp = () => {
   const [form, setForm] = useState({ username: "", email: "", password: "" });
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,6 +25,7 @@ const SignUp = () => {
     e.preventDefault();
     setError("");
     setSuccess("");
+    setIsLoading(true);
 
     try {
       const response = await instance.post("/api/user/register", form);
@@ -50,6 +53,8 @@ const SignUp = () => {
           theme: "colored",
         });
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -120,9 +125,10 @@ const SignUp = () => {
           />
           <button
             type="submit"
-            className="bg-cyan-700 text-white p-2 rounded hover:bg-cyan-800 transition duration-200"
+            disabled={isLoading}
+            className="bg-cyan-700 text-white p-2 rounded hover:bg-cyan-800 transition duration-200 flex justify-center items-center disabled:opacity-70 disabled:cursor-not-allowed"
           >
-            Sign Up
+            {isLoading ? <Loader2 className="animate-spin" /> : "Sign Up"}
           </button>
 
           {error && <div className="text-red-500 text-center">{error}</div>}
